@@ -9,8 +9,8 @@ Le but final est de créer une application permettant de déterminer la localisa
 * Récupérer la liste des artistes présent dans la bilibothèque physique de l'utilisateur
 * Stocker cette liste dans une base de données SQLite locale
 * Pour chaque artiste, rechercher les prochains concerts près de la position de l'utilisateur (Utilisation GPS et API tels que songkick)
-* Afficher une liste détailés des concerts
-* Afficher une liste détailés de chaque artistes (Utilisation API last.fm)
+* Afficher une liste détailée des concerts
+* Afficher une liste détailée de chaque artistes (Utilisation API last.fm)
 
 
 ### Secondaires
