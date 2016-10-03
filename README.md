@@ -6,17 +6,17 @@ Dans la cadre du cours de développement mobile, une application pour Android va
 Le but final est de créer une application permettant de déterminer la localisation de l’utilisateur. Ainsi, il sera possible de l’informer, suivant ses préférences musicales, des concerts ayant lieu à proximité.
 ## Objectifs
 ### Primaires
-* Récupérer la liste des artistes présent dans la bilibothèque physique de l'utilisateur
+* Récupérer la liste des artistes présents dans la bilibothèque physique de l'utilisateur
 * Stocker cette liste dans une base de données SQLite locale
-* Pour chaque artiste, rechercher les prochains concerts près de la position de l'utilisateur (Utilisation GPS et API tels que songkick)
-* Afficher une liste détailée des concerts
-* Afficher une liste détailée de chaque artistes (Utilisation API last.fm)
+* Pour chaque artiste, rechercher les prochains concerts près de la position de l'utilisateur (Utilisation GPS et API telle que songkick)
+* Afficher une liste détaillée des concerts
+* Afficher une liste détaillée de chaque artiste (Utilisation API last.fm)
 
 
 ### Secondaires
-* Service afin d'afficher une notification lors d'un nouveau concert (Sans devoir ouvrir l'application), et ajouts automatique des nouveaux artistes, toujours sans ouvrire l'application.
-* Proposer des artistes similaire ? (last.fm similar artists)
-* Si vraiment le temps intégrer le support de beacons : Par exemple si un utilisateur s'approche dans stand TicketCorner dont celui-ci possède un beacon, il peut recevoir une promotion ou offre similaire sur un des ces artistes préférés...
+* Service afin d'afficher une notification lors d'un nouveau concert (Sans devoir ouvrir l'application), et ajouts automatiques des nouveaux artistes, toujours sans ouvrir l'application.
+* Proposer des artistes similaires ? (last.fm similar artists)
+* Si vraiment le temps intégrer le support de beacons : Par exemple si un utilisateur s'approche d'un stand TicketCorner qui possède un beacon, il peut recevoir une promotion ou offre similaire sur un des ses artistes préférés...
 
 
 ## Technos
@@ -24,7 +24,7 @@ Le but final est de créer une application permettant de déterminer la localisa
 * Api songkick pour les dates de concerts
 * Api last.fm pour les infos artises
 * RecyclerView
-* [Fresco](http://frescolib.org/) lib créer et utilisé par Facebook pour géré efficacement les images. 
+* [Fresco](http://frescolib.org/) lib créée et utilisée par Facebook pour gérer efficacement les images. 
 
 ## Délai
 Le projet a été commencé le mardi 20 septembre 2016 et se terminera le mardi 17 janvier 2017.
