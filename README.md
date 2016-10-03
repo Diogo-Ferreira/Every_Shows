@@ -6,7 +6,7 @@ Dans la cadre du cours de développement mobile, une application pour Android va
 Le but final est de créer une application permettant de déterminer la localisation de l’utilisateur. Ainsi, il sera possible de l’informer, suivant ses préférences musicales, des concerts ayant lieu à proximité.
 ## Objectifs
 ### Primaires
-* Récupérer la liste des artistes présents dans la bilibothèque physique de l'utilisateur
+* Récupérer la liste des artistes présents dans la bibliothèque physique de l'utilisateur
 * Stocker cette liste dans une base de données SQLite locale
 * Pour chaque artiste, rechercher les prochains concerts près de la position de l'utilisateur (Utilisation GPS et API telle que songkick)
 * Afficher une liste détaillée des concerts
