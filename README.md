@@ -15,9 +15,7 @@ Le but final est de créer une application permettant de déterminer la localisa
 
 ### Secondaires
 * Service afin d'afficher une notification lors d'un nouveau concert (Sans devoir ouvrir l'application), et ajouts automatique des nouveaux artistes, toujours sans ouvrire l'application.
-
 * Proposer des artistes similaire ? (last.fm similar artists)
-
 * Si vraiment le temps intégrer le support de beacons : Par exemple si un utilisateur s'approche dans stand TicketCorner dont celui-ci possède un beacon, il peut recevoir une promotion ou offre similaire sur un des ces artistes préférés...
 
 
