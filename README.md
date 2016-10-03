@@ -20,7 +20,7 @@ Le but final est de créer une application permettant de déterminer la localisa
 * Si vraiment le temps intégrer le support de beacons : Par exemple si un utilisateur s'approche dans stand TicketCorner dont celui-ci possède un beacon, il peut recevoir une promotion ou offre similaire sur un des ces artistes préférés...
 
 
-## Techos
+## Technos
 
 * Api songkick pour les dates de concerts
 * Api last.fm pour les infos artises
