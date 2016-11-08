@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ArtistView</string>
+    <string name="title_activity_show_list">ShowListActivity</string>
 </resources>
