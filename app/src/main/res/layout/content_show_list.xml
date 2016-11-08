@@ -17,14 +17,15 @@
             android:id="@+id/imageHall"
             fresco:placeholderImageScaleType="centerCrop"
             />
-        <com.facebook.drawee.view.DraweeView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="5dp"
-            android:background= "@drawable/artist2"
-            android:id="@+id/artist"
+            fresco:placeholderImage = "@drawable/artist2"
             fresco:roundAsCircle="true"
+            fresco:roundedCornerRadius="1dp"
+            android:id="@+id/artist"
             />
         <TextView
             android:layout_width="wrap_content"
