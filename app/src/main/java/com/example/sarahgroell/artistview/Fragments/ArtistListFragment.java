@@ -35,7 +35,6 @@ public class ArtistListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Fresco.initialize(this.getContext());
         final ArrayList<Artist> artists = new ArrayList<>();
         artists.add(new Artist("Avril Lavigne","http://www.billboard.com/files/media/avril-lavigne-press-650b.jpg"));
         artists.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));

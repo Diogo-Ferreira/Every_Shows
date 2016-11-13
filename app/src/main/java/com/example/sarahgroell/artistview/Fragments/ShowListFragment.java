@@ -43,8 +43,6 @@ public class ShowListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        Fresco.initialize(this.getContext());
         final ArrayList<Show> shows = new ArrayList<>();
         shows.add(new Show("Hallenstadion", "http://www.hallenstadion.ch/media/uploads/headers/432343/images/header-frontseite-club-konzert-29.01.15.jpg?w=1650&c=1650x550"));
         shows.add(new Show("Stade de Suisse","https://i.ytimg.com/vi/gRkyk9iyjmM/maxresdefault.jpg"));
