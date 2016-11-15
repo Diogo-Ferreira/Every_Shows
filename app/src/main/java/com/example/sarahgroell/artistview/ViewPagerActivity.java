@@ -1,6 +1,7 @@
 package com.example.sarahgroell.artistview;
 
 import android.os.Bundle;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
@@ -15,7 +16,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
 
-    private boolean frescoInitialized = false;
+    private static boolean frescoInitialized = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);

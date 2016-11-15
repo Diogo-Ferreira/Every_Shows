@@ -21,15 +21,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
                 return ShowListFragment.newInstance();
             case 1:
                 return ArtistListFragment.newInstance();
-            case 2:
-                return PlaceholderFragment.newInstance(position);
         }
         return null;
     }
@@ -37,18 +33,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 3;
+        return 2;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Your Shows";
+                return "SHOWS";
             case 1:
-                return "Your artists";
-            case 2:
-                return "Settings";
+                return "ARTISTS";
         }
         return null;
     }

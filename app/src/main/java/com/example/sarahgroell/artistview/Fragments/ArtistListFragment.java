@@ -38,14 +38,23 @@ public class ArtistListFragment extends Fragment {
         final ArrayList<Artist> artists = new ArrayList<>();
         artists.add(new Artist("Avril Lavigne","http://www.billboard.com/files/media/avril-lavigne-press-650b.jpg"));
         artists.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));
-        artists.add(new Artist("Lindsey Stirling","https://i.ytimg.com/vi/aE2GCa-_nyU/maxresdefault.jpg"));
+        artists.add(new Artist("Lindsey Stirling","http://www.billboard.com/files/styles/article_main_image/public/media/lindsey-stirling-sundance-2015-billboard-650.jpg"));
+        artists.add(new Artist("Adele","http://paroles-et-traduction.com/wp-content/uploads/2016/02/adele1.jpg"));
+        artists.add(new Artist("Jain","http://grungecake.com/wp-content/uploads/2016/05/jain-grungecake-thumbnail.jpg"));
+        artists.add(new Artist("Avril Lavigne","http://www.billboard.com/files/media/avril-lavigne-press-650b.jpg"));
+        artists.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));
+        artists.add(new Artist("Lindsey Stirling","http://www.billboard.com/files/styles/article_main_image/public/media/lindsey-stirling-sundance-2015-billboard-650.jpg"));
+        artists.add(new Artist("Adele","http://paroles-et-traduction.com/wp-content/uploads/2016/02/adele1.jpg"));
+        artists.add(new Artist("Jain","http://grungecake.com/wp-content/uploads/2016/05/jain-grungecake-thumbnail.jpg"));
+        artists.add(new Artist("Avril Lavigne","http://www.billboard.com/files/media/avril-lavigne-press-650b.jpg"));
+        artists.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));
+        artists.add(new Artist("Lindsey Stirling","http://www.billboard.com/files/styles/article_main_image/public/media/lindsey-stirling-sundance-2015-billboard-650.jpg"));
         artists.add(new Artist("Adele","http://paroles-et-traduction.com/wp-content/uploads/2016/02/adele1.jpg"));
         artists.add(new Artist("Jain","http://grungecake.com/wp-content/uploads/2016/05/jain-grungecake-thumbnail.jpg"));
         final RecyclerViewAdapter adapter = new RecyclerViewAdapter(artists);
         recyclerView = (RecyclerView)getView().findViewById(R.id.RecyclerView);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1));
-        adapter.notifyDataSetChanged();
     }
 
     public static Fragment newInstance() {
