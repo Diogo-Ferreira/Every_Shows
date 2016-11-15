@@ -47,17 +47,6 @@ public class ArtistListFragment extends Fragment {
         artistData.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));
         artistData.add(new Artist("Lindsey Stirling","http://www.billboard.com/files/styles/article_main_image/public/media/lindsey-stirling-sundance-2015-billboard-650.jpg"));
         artistData.add(new Artist("Adele","http://paroles-et-traduction.com/wp-content/uploads/2016/02/adele1.jpg"));
-        artistData.add(new Artist("Jain","http://grungecake.com/wp-content/uploads/2016/05/jain-grungecake-thumbnail.jpg"));
-        artistData.add(new Artist("Avril Lavigne","http://www.billboard.com/files/media/avril-lavigne-press-650b.jpg"));
-        artistData.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));
-        artistData.add(new Artist("Lindsey Stirling","http://www.billboard.com/files/styles/article_main_image/public/media/lindsey-stirling-sundance-2015-billboard-650.jpg"));
-        artistData.add(new Artist("Adele","http://paroles-et-traduction.com/wp-content/uploads/2016/02/adele1.jpg"));
-        artistData.add(new Artist("Jain","http://grungecake.com/wp-content/uploads/2016/05/jain-grungecake-thumbnail.jpg"));
-        artistData.add(new Artist("Avril Lavigne","http://www.billboard.com/files/media/avril-lavigne-press-650b.jpg"));
-        artistData.add(new Artist("In This Moment","http://img2-ak.lst.fm/i/u/arO/f0cbd8b54866452d921a88fe48ab5082"));
-        artistData.add(new Artist("Lindsey Stirling","http://www.billboard.com/files/styles/article_main_image/public/media/lindsey-stirling-sundance-2015-billboard-650.jpg"));
-        artistData.add(new Artist("Adele","http://paroles-et-traduction.com/wp-content/uploads/2016/02/adele1.jpg"));
-        artistData.add(new Artist("Jain","http://grungecake.com/wp-content/uploads/2016/05/jain-grungecake-thumbnail.jpg"));
 
     }
 
