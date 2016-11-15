@@ -53,10 +53,10 @@ public class ShowListFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if(!initializeShow){
-            showData.add(new Show("Hallenstadion", "http://www.hallenstadion.ch/media/uploads/headers/432343/images/header-frontseite-club-konzert-29.01.15.jpg?w=1650&c=1650x550"));
-            showData.add(new Show("Stade de Suisse","https://i.ytimg.com/vi/gRkyk9iyjmM/maxresdefault.jpg"));
-            showData.add(new Show("Greenfield Festival","http://musictour.eu/data//uploads/media/halls/2342/0e077adc167f8ebfd7cda248e2ab8f2c.jpg"));
-            showData.add(new Show("Wacken Open Air","http://www.yourope.org/cgi-bin/foto/109-2.jpg"));
+            showData.add(new Show("Hallenstadion", "http://www.hallenstadion.ch/media/uploads/headers/432343/images/header-frontseite-club-konzert-29.01.15.jpg?w=1650&c=1650x550","12.03.17"));
+            showData.add(new Show("Stade de Suisse","https://i.ytimg.com/vi/gRkyk9iyjmM/maxresdefault.jpg","23.07.17"));
+            showData.add(new Show("Greenfield Festival","http://musictour.eu/data//uploads/media/halls/2342/0e077adc167f8ebfd7cda248e2ab8f2c.jpg","05.05.17"));
+            showData.add(new Show("Wacken Open Air","http://www.yourope.org/cgi-bin/foto/109-2.jpg","09.08.17"));
 
             initializeShow = true;
         }

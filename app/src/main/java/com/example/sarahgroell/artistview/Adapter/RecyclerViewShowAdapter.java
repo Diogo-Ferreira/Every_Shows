@@ -38,6 +38,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
     public void onBindViewHolder(RecyclerViewShowAdapter.ViewHolder holder, int position) {
         holder.showPlace.setText(listShow.get(position).place);
         holder.imageCover.setImageURI(listShow.get(position).imageCover);
+        holder.showDate.setText(listShow.get(position).date);
        // holder.imageArtist.setImageURI(listShow.get(position).artist.imageCover);
     }
 
@@ -50,12 +51,14 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
 
         public TextView showPlace;
         public SimpleDraweeView imageCover;
+        public TextView showDate;
         //public SimpleDraweeView imageArtist;
 
         public ViewHolder(View itemView){
             super(itemView);
             showPlace = (TextView) itemView.findViewById(R.id.textView);
             imageCover= (SimpleDraweeView) itemView.findViewById(R.id.imageHall);
+            showDate = (TextView) itemView.findViewById(R.id.date);
             //imageArtist = (SimpleDraweeView) itemView.findViewById(R.id.artist);
         }
 

@@ -9,10 +9,10 @@ import java.util.Date;
 public class Show {
     public Artist artist;
     public String place;
-    public Date date;
+    public String date;
     public String imageCover;
 
-    public Show(Artist a, String p, Date d, String i){
+    public Show(Artist a, String p, String d, String i){
         this.artist = a;
         this.place = p;
         this.date = d;
@@ -22,5 +22,10 @@ public class Show {
     public Show(String p, String image){
         this.place = p;
         this.imageCover = image;
+    }
+    public Show(String p, String i,String d ){
+        this.place = p;
+        this.imageCover = i;
+        this.date = d;
     }
 }
