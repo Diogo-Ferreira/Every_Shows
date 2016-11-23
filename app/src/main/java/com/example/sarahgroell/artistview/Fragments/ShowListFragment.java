@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.sarahgroell.artistview.Adapter.RecyclerViewShowAdapter;
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -63,5 +64,12 @@ public class ShowListFragment extends Fragment {
 
 
         Log.d("Show","OnStart");
+        showAdapter.setListener(new IShowListener() {
+            @Override
+            public void onClickShow(String name) {
+                Log.d("from anonyme",name);
+                //On devrait lancer le fragment ici.
+            }
+        });
     }
 }

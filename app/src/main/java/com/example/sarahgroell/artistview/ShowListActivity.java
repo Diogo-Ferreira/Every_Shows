@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.example.sarahgroell.artistview.Adapter.RecyclerViewShowAdapter;
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Fragments.ShowDetailFragment;
+import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
