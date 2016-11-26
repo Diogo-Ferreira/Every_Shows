@@ -1,12 +1,11 @@
 package com.example.sarahgroell.artistview.Data;
 
-import java.util.Date;
-
 /**
  * Created by aurelie.debrot on 08.11.2016.
  */
 
 public class Show {
+
     public Artist artist;
     public String place;
     public String date;
@@ -27,5 +26,11 @@ public class Show {
         this.place = p;
         this.imageCover = i;
         this.date = d;
+    }
+
+
+    @Override
+    public String toString() {
+        return place + " " + date + " " + artist.name;
     }
 }

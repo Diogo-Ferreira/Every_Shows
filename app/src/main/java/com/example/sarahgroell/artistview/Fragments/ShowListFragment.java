@@ -10,13 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.sarahgroell.artistview.Adapter.RecyclerViewShowAdapter;
+import com.example.sarahgroell.artistview.Data.Api.RestClient;
+import com.example.sarahgroell.artistview.Data.Api.RetrofitClient;
+import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Data.Show;
 import com.example.sarahgroell.artistview.R;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by diogo on 11/8/16.
@@ -26,8 +30,8 @@ public class ShowListFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerViewShowAdapter showAdapter;
-    private static boolean initializeShow = false;
     ArrayList<Show> showData = new ArrayList<>();
+    RestClient restClient = RetrofitClient.getService();
 
     @Nullable
     @Override
@@ -52,16 +56,28 @@ public class ShowListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(!initializeShow){
-            showData.add(new Show("Hallenstadion", "http://www.hallenstadion.ch/media/uploads/headers/432343/images/header-frontseite-club-konzert-29.01.15.jpg?w=1650&c=1650x550","12.03.17"));
-            showData.add(new Show("Stade de Suisse","https://i.ytimg.com/vi/gRkyk9iyjmM/maxresdefault.jpg","23.07.17"));
-            showData.add(new Show("Greenfield Festival","http://musictour.eu/data//uploads/media/halls/2342/0e077adc167f8ebfd7cda248e2ab8f2c.jpg","05.05.17"));
-            showData.add(new Show("Wacken Open Air","http://www.yourope.org/cgi-bin/foto/109-2.jpg","09.08.17"));
 
-            initializeShow = true;
-        }
+        loadData();
 
 
         Log.d("Show","OnStart");
+    }
+
+    private void loadData(){
+        ArrayList<Artist> artists = (ArrayList<Artist>) Artist.fake();
+
+        restClient.getShows(artists, new RestClient.OnResponce() {
+            @Override
+            public <T> void OnSuccess(T response) {
+                showData.addAll((List<? extends Show>) response);
+                showAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public <T> void OnFailure(T failure) {
+                Log.d("Retrofit", failure.toString().toString());
+                Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG);
+            }
+        });
     }
 }
