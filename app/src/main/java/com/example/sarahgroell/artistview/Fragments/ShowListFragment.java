@@ -17,6 +17,7 @@ import com.example.sarahgroell.artistview.Data.Api.RestClient;
 import com.example.sarahgroell.artistview.Data.Api.RetrofitClient;
 import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.R;
 
 import java.util.ArrayList;
@@ -61,6 +62,13 @@ public class ShowListFragment extends Fragment {
 
 
         Log.d("Show","OnStart");
+        showAdapter.setListener(new IShowListener() {
+            @Override
+            public void onClickShow(String name) {
+                Log.d("from anonyme",name);
+                //On devrait lancer le fragment ici.
+            }
+        });
     }
 
     private void loadData(){
