@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.R;
+import com.example.sarahgroell.artistview.ShowListActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -19,6 +22,16 @@ import java.util.List;
 public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewShowAdapter.ViewHolder> {
 
     private List<Show> listShow;
+
+    public IShowListener getListener() {
+        return listener;
+    }
+
+    public void setListener(IShowListener listener) {
+        this.listener = listener;
+    }
+
+    private IShowListener listener;
 
     public RecyclerViewShowAdapter(List<Show> listShow) {
         this.listShow = listShow;
@@ -35,9 +48,18 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewShowAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerViewShowAdapter.ViewHolder holder, final int position) {
         holder.showPlace.setText(listShow.get(position).place);
         holder.imageCover.setImageURI(listShow.get(position).imageCover);
+        holder.imageCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Click");
+                if(listener != null){
+                    listener.onClickShow(listShow.get(position).place);
+                }
+            }
+        });
         holder.showDate.setText(listShow.get(position).date);
        // holder.imageArtist.setImageURI(listShow.get(position).artist.imageCover);
     }
