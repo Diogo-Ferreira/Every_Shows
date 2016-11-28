@@ -51,8 +51,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
     public void onBindViewHolder(RecyclerViewShowAdapter.ViewHolder holder, final int position) {
         holder.showPlace.setText(listShow.get(position).place);
         holder.imageCover.setImageURI(listShow.get(position).imageCover);
-        Log.d("Adapter",listShow.get(position).imageCover);
-
+        holder.artistCover.setImageURI(listShow.get(position).artist.imageCover);
         holder.imageCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +62,6 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
             }
         });
         holder.showDate.setText(listShow.get(position).date);
-       // holder.imageArtist.setImageURI(listShow.get(position).artist.imageCover);
     }
 
     @Override
@@ -75,6 +73,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
 
         public TextView showPlace;
         public SimpleDraweeView imageCover;
+        public SimpleDraweeView artistCover;
         public TextView showDate;
         //public SimpleDraweeView imageArtist;
 
@@ -83,7 +82,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
             showPlace = (TextView) itemView.findViewById(R.id.textView);
             imageCover= (SimpleDraweeView) itemView.findViewById(R.id.imageHall);
             showDate = (TextView) itemView.findViewById(R.id.date);
-            //imageArtist = (SimpleDraweeView) itemView.findViewById(R.id.artist);
+            artistCover = (SimpleDraweeView) itemView.findViewById(R.id.artist);
         }
 
     }

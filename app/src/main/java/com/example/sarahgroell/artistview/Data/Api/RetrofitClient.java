@@ -32,7 +32,7 @@ public class RetrofitClient implements RestClient{
                 .readTimeout(10, TimeUnit.MINUTES)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000")
+                .baseUrl("http://46.101.128.247:4567")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -54,10 +54,10 @@ public class RetrofitClient implements RestClient{
 
         //Api can batch multiple users, sperated by comas
         for(Artist a : artists)
-            artistsGlued += "," + a.name;
+            artistsGlued += a.name+",";
 
 
-        Call<List<Show>> call = service.listShows(artistsGlued.replaceAll(" ","%20"));
+        Call<List<Show>> call = service.listShows(artistsGlued);
 
         call.enqueue(new Callback<List<Show>>() {
             @Override
@@ -73,8 +73,20 @@ public class RetrofitClient implements RestClient{
     }
 
     @Override
-    public void getArtistInfo(Artist artist, OnResponce response) {
+    public void getArtistInfo(Artist artist, final OnResponce finalResponse) {
+        Call<Artist> call = service.getArtistInfo(artist.name);
 
+        call.enqueue(new Callback<Artist>() {
+            @Override
+            public void onResponse(Call<Artist> call, Response<Artist> response) {
+                finalResponse.OnSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Artist> call, Throwable t) {
+                finalResponse.OnFailure(t);
+            }
+        });
     }
 
 

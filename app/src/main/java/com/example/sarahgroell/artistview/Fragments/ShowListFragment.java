@@ -19,6 +19,7 @@ import com.example.sarahgroell.artistview.Data.Api.RetrofitClient;
 import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Data.Show;
 import com.example.sarahgroell.artistview.Listener.IShowListener;
+import com.example.sarahgroell.artistview.MusicProvider.ArtistsManager;
 import com.example.sarahgroell.artistview.R;
 
 import java.util.ArrayList;
@@ -34,7 +35,9 @@ public class ShowListFragment extends Fragment {
     RecyclerViewShowAdapter showAdapter;
     ArrayList<Show> showData = new ArrayList<>();
     RestClient restClient = RetrofitClient.getService();
-    private boolean loadingData = false;
+    boolean loadingData = false;
+    ArtistsManager artistsManager = ArtistsManager.getInstance();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -91,6 +94,8 @@ public class ShowListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        artistsManager.load(this.getContext());
+
         if(showData.size() == 0)
             loadData();
 
@@ -109,22 +114,28 @@ public class ShowListFragment extends Fragment {
     private void loadData(){
 
         loadingData = true;
-        ArrayList<Artist> artists = (ArrayList<Artist>) Artist.fake();
+        List<Artist> artists = artistsManager.fetch();
 
-        restClient.getShows(artists.subList(0,1), new RestClient.OnResponce() {
-            @Override
-            public <T> void OnSuccess(T response) {
-                showData.addAll((List<Show>) response);
-                showAdapter.notifyDataSetChanged();
-                loadingData = false;
-            }
+        if(artists == null) return;
 
-            @Override
-            public <T> void OnFailure(T failure) {
-                Log.d("Retrofit", failure.toString().toString());
-                Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG);
-                loadingData = false;
-            }
-        });
+        for(int i = 0; i< artists.size(); i++){
+            restClient.getShows(artists.subList(i,i+1), new RestClient.OnResponce() {
+                @Override
+                public <T> void OnSuccess(T response) {
+                    showData.addAll((List<Show>) response);
+                    showAdapter.notifyDataSetChanged();
+                    loadingData = false;
+                }
+
+                @Override
+                public <T> void OnFailure(T failure) {
+                    Log.d("Retrofit", failure.toString().toString());
+                    Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG);
+                    loadingData = false;
+                }
+            });
+        }
+
+
     }
 }

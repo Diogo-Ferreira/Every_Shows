@@ -22,11 +22,16 @@ public class Artist {
     }
 
 
-    public static List<Artist> fake (){
+    public String toString() {
+        return name;
+    }
+
+    public static List<Artist> fake(){
         List<Artist> fakeArtists = new ArrayList<Artist>();
         fakeArtists.add(new Artist("Green Day"));
         fakeArtists.add(new Artist("Adele"));
         fakeArtists.add(new Artist("System of a Down"));
         return fakeArtists;
+
     }
 }
