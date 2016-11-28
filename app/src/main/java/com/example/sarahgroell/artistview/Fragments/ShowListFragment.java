@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class ShowListFragment extends Fragment {
     RecyclerViewShowAdapter showAdapter;
     ArrayList<Show> showData = new ArrayList<>();
     RestClient restClient = RetrofitClient.getService();
-
+    private boolean loadingData = false;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,8 +42,40 @@ public class ShowListFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.RecyclerView);
 
         showAdapter = new RecyclerViewShowAdapter(showData);
+
         recyclerView.setAdapter(showAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), this.getContext().getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE ? 1 : 2));
+
+        final RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(
+                this.getContext(),
+                this.getContext().
+                        getResources().
+                        getConfiguration().
+                        orientation != Configuration.ORIENTATION_LANDSCAPE ? 1 : 2
+        );
+
+        recyclerView.setLayoutManager(mLayoutManager);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if(loadingData)
+                    return;
+
+                int visibleItemCount = mLayoutManager.getChildCount();
+                int totalItemCount = mLayoutManager.getItemCount();
+                int pastVisibleItems = ((LinearLayoutManager)mLayoutManager).findFirstVisibleItemPosition();
+
+
+                //Did we reached the end ?
+
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    loadData();
+                }
+            }
+        });
+
 
         Log.d("Show","OnCreateView");
         return v;
@@ -58,7 +91,9 @@ public class ShowListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        loadData();
+        if(showData.size() == 0)
+            loadData();
+
 
 
         Log.d("Show","OnStart");
@@ -72,19 +107,23 @@ public class ShowListFragment extends Fragment {
     }
 
     private void loadData(){
+
+        loadingData = true;
         ArrayList<Artist> artists = (ArrayList<Artist>) Artist.fake();
 
-        restClient.getShows(artists, new RestClient.OnResponce() {
+        restClient.getShows(artists.subList(0,1), new RestClient.OnResponce() {
             @Override
             public <T> void OnSuccess(T response) {
-                showData.addAll((List<? extends Show>) response);
+                showData.addAll((List<Show>) response);
                 showAdapter.notifyDataSetChanged();
+                loadingData = false;
             }
 
             @Override
             public <T> void OnFailure(T failure) {
                 Log.d("Retrofit", failure.toString().toString());
                 Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG);
+                loadingData = false;
             }
         });
     }

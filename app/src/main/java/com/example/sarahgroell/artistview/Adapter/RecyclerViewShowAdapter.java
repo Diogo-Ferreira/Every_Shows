@@ -1,6 +1,7 @@
 package com.example.sarahgroell.artistview.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.Toast;
 import com.example.sarahgroell.artistview.Data.Show;
 import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.R;
-import com.example.sarahgroell.artistview.ShowListActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
@@ -51,6 +51,8 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
     public void onBindViewHolder(RecyclerViewShowAdapter.ViewHolder holder, final int position) {
         holder.showPlace.setText(listShow.get(position).place);
         holder.imageCover.setImageURI(listShow.get(position).imageCover);
+        Log.d("Adapter",listShow.get(position).imageCover);
+
         holder.imageCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

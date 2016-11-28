@@ -6,7 +6,6 @@
         <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            fresco:placeholderImage="@drawable/hallenstadion"
             android:id="@+id/imageHall"
             fresco:placeholderImageScaleType="centerCrop"
             />
@@ -15,7 +14,6 @@
             android:layout_height="100dp"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="5dp"
-            fresco:placeholderImage = "@drawable/artist2"
             fresco:roundAsCircle="true"
             fresco:roundedCornerRadius="1dp"
             android:id="@+id/artist"

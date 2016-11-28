@@ -12,7 +12,7 @@ import java.util.List;
 public interface RestClient {
 
     void getShows(List<Artist> artists,OnResponce response);
-    void getArtistsInfo(List<Artist> artists,OnResponce response);
+    void getArtistInfo(Artist artist,OnResponce response);
     void getShow(Show show,OnResponce response);
 
 

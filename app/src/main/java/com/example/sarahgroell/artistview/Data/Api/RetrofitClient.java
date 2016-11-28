@@ -6,6 +6,9 @@ import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Data.Show;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,9 +27,14 @@ public class RetrofitClient implements RestClient{
 
 
     private RetrofitClient(){
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.MINUTES)
+                .readTimeout(10, TimeUnit.MINUTES)
+                .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:5000")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
 
          service = retrofit.create(EveryShowsService.class);
@@ -46,7 +54,7 @@ public class RetrofitClient implements RestClient{
 
         //Api can batch multiple users, sperated by comas
         for(Artist a : artists)
-            artistsGlued += ", " + a.name;
+            artistsGlued += "," + a.name;
 
 
         Call<List<Show>> call = service.listShows(artistsGlued.replaceAll(" ","%20"));
@@ -65,9 +73,10 @@ public class RetrofitClient implements RestClient{
     }
 
     @Override
-    public void getArtistsInfo(List<Artist> artists, OnResponce responce) {
+    public void getArtistInfo(Artist artist, OnResponce response) {
 
     }
+
 
     @Override
     public void getShow(Show show, OnResponce responce) {
