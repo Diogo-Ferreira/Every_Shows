@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Fragments.ShowDetailFragment;
 import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;

@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -106,7 +107,11 @@ public class ShowListFragment extends Fragment {
             @Override
             public void onClickShow(String name) {
                 Log.d("from anonyme",name);
-                //On devrait lancer le fragment ici.
+                ShowDetailFragment fragment = new ShowDetailFragment();
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.frameLayout,fragment);
+                transaction.commit();
+                //showData a les données, trouver la manière de les envoyer au fragment : soit bundle soit constructeur
             }
         });
     }
