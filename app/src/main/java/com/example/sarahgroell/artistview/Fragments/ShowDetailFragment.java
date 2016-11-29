@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.sarahgroell.artistview.Data.Show;
 import com.example.sarahgroell.artistview.R;
 
 /**
@@ -15,6 +16,8 @@ import com.example.sarahgroell.artistview.R;
  */
 
 public class ShowDetailFragment extends Fragment {
+
+    //Show show = new Show(); donner les infos
 
     @Nullable
     @Override
