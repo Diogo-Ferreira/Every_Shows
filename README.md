@@ -1,4 +1,5 @@
-# androidproject CC
+# Every Shows
+![artists view](https://github.com/Diogo-Ferreira/Every_Shows/blob/master/every_Shows_artists.png?raw=true)
 
 ## Motivation
 Dans la cadre du cours de développement mobile, une application pour Android va être réalisée. Le délai pour mener à bien ce projet est d’un semestre. Il a été décidé de développer une application permettant de référencer les concerts se déroulant dans la région de l’utilisateur. Ce projet sera réalisé avec Android 5.0 Lollipop.
