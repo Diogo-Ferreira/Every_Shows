@@ -105,13 +105,15 @@ public class ShowListFragment extends Fragment {
         Log.d("Show","OnStart");
         showAdapter.setListener(new IShowListener() {
             @Override
-            public void onClickShow(String name) {
-                Log.d("from anonyme",name);
+            public void onClickShow(Show show) {
+                Log.d("from anonyme",show.toString());
                 ShowDetailFragment fragment = new ShowDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("show",show);
+                fragment.setArguments(bundle);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.add(R.id.frameLayout,fragment);
                 transaction.commit();
-                //showData a les données, trouver la manière de les envoyer au fragment : soit bundle soit constructeur
             }
         });
     }
