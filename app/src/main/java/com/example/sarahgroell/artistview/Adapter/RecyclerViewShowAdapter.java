@@ -58,7 +58,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
             public void onClick(View v) {
                 System.out.println("Click");
                 if(listener != null){
-                    listener.onClickShow(listShow.get(position).place);
+                    listener.onClickShow(listShow.get(position));//Précédement get(posiion).place
                 }
             }
         });
