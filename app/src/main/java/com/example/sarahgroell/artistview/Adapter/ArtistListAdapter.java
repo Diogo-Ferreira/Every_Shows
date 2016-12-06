@@ -45,7 +45,7 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Vi
             @Override
             public void onClick(View v) {
                 if(listener != null){
-                    listener.onClickArtist(artists.get(position).name);
+                    listener.onClickArtist(artists.get(position));
                 }
             }
         });

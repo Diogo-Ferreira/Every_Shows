@@ -82,13 +82,18 @@ public class ArtistListFragment extends Fragment {
 
       adapter.setListener(new IArtistListener() {
           @Override
-          public void onClickArtist(String name) {
-              Log.d("from anonyme",name);
+          public void onClickArtist(Artist artist) {
+              Log.d("from anonyme",artist.toString());
               ArtistDetailFragment fragment = new ArtistDetailFragment();
+              Bundle bundle = new Bundle();
+              bundle.putParcelable("artist",artist);
+              fragment.setArguments(bundle);
               FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
               transaction.add(R.id.frameLayout,fragment).addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
               transaction.commit();
           }
+
+
       });
 
     }

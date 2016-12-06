@@ -60,6 +60,7 @@
         android:id="@+id/recyclerArtists">
     </android.support.v7.widget.RecyclerView>
 
+    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,6 +84,6 @@
         android:textColor="#00c853"
         />
 
-
+-->
 
 </RelativeLayout>
