@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sarahgroell.artistview.Data.Artist;
+import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -16,15 +17,17 @@ import java.util.List;
  * Created by sarah.groell on 01.11.2016.
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
-    public RecyclerViewAdapter(List<Artist> artists) {
+public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.ViewHolder>{
+    private IArtistListener listener;
+
+    public ArtistListAdapter(List<Artist> artists) {
         this.artists = artists;
     }
 
     private List<Artist> artists;
 
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ArtistListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view_item, parent, false);
@@ -35,14 +38,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ArtistListAdapter.ViewHolder holder, final int position) {
         holder.artistName.setText(artists.get(position).name);
         holder.imageCover.setImageURI(artists.get(position).imageCover);
+        holder.imageCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener != null){
+                    listener.onClickArtist(artists.get(position).name);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return artists.size();
+    }
+
+    public void setListener(IArtistListener listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

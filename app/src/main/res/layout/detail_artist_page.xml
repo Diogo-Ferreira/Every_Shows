@@ -26,7 +26,7 @@
         fresco:placeholderImage="@drawable/artist1"
         fresco:roundAsCircle="true"
         fresco:roundedCornerRadius="1dp"
-        android:id="@+id/artist"
+        android:id="@+id/artistImage"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_marginTop="16dp"
         android:layout_gravity="center"
         android:textSize="30dp"
-        android:textColor="#00c853"
+        android:textColor="#fff"
        />
 
     </LinearLayout>
@@ -53,15 +53,21 @@
         android:textSize="20dp"
         android:textColor="#00c853"
         />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/similarArtists"
+        android:id="@+id/recyclerArtists">
+    </android.support.v7.widget.RecyclerView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Informations"
         android:id="@+id/informations"
-        android:layout_marginTop="290dp"
         android:layout_marginLeft="15dp"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/similarArtists"
         android:textSize="20dp"
         android:textColor="#00c853"
         />
@@ -70,8 +76,8 @@
         android:layout_height="wrap_content"
         android:text="Prochains concerts"
         android:id="@+id/shows"
-        android:layout_marginTop="390dp"
         android:layout_marginLeft="15dp"
+        android:layout_below="@id/informations"
         android:layout_alignParentLeft="true"
         android:textSize="20dp"
         android:textColor="#00c853"

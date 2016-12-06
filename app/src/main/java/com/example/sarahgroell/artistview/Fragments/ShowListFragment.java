@@ -109,7 +109,7 @@ public class ShowListFragment extends Fragment {
                 Log.d("from anonyme",name);
                 ShowDetailFragment fragment = new ShowDetailFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.frameLayout,fragment);
+                transaction.add(R.id.frameLayout,fragment).addToBackStack(null);
                 transaction.commit();
                 //showData a les données, trouver la manière de les envoyer au fragment : soit bundle soit constructeur
             }
