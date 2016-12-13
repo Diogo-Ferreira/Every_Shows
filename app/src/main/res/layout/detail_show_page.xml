@@ -51,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/artistName"
         android:text="In this Moment"
         android:textColor="#fff"
@@ -59,8 +60,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="210dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/location"
         android:text="HallenStadion - Zurich"
         android:textColor="#fff"
         android:textSize="20dp"/>
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        />
 </RelativeLayout>
