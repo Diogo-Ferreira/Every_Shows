@@ -26,9 +26,10 @@ public class ArtistsManager {
         return instance;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void load(Context context){
         providers.add(new TestMusicProvider());
-
+        providers.add(new LocalMusicProvider((Activity) context));
         for(ArtistProvider artistProvider : providers){
             artists.addAll(artistProvider.getArtist());
         }
