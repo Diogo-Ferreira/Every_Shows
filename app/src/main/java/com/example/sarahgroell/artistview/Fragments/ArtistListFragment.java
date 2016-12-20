@@ -21,6 +21,7 @@ import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.MusicProvider.ArtistsManager;
 import com.example.sarahgroell.artistview.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,13 @@ public class ArtistListFragment extends Fragment {
     private boolean loadingData = false;
     RestClient restClient = RetrofitClient.getService();
     ArtistsManager artistsManager = ArtistsManager.getInstance();
+    AVLoadingIndicatorView avi;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.artist_show_list, container,false);
-
+        avi = (AVLoadingIndicatorView) v.findViewById(R.id.avi);
         adapter = new ArtistListAdapter(artistData);
         recyclerView = (RecyclerView) v.findViewById(R.id.RecyclerView);
         recyclerView.setAdapter(adapter);
@@ -60,9 +62,7 @@ public class ArtistListFragment extends Fragment {
                 int totalItemCount = mLayoutManager.getItemCount();
                 int pastVisibleItems = ((LinearLayoutManager)mLayoutManager).findFirstVisibleItemPosition();
 
-
                 //Did we reached the end ?
-
                 if (pastVisibleItems + visibleItemCount >= totalItemCount) {
                     loadData();
                 }
@@ -76,8 +76,10 @@ public class ArtistListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        if(artistData.size() == 0)
+        if(artistData.size() == 0) {
+            if(avi != null) avi.show();
             loadData();
+        }
 
 
       adapter.setListener(new IArtistListener() {
@@ -111,13 +113,15 @@ public class ArtistListFragment extends Fragment {
                 public <T> void OnSuccess(T response) {
                     artistData.add((Artist) response);
                     adapter.notifyDataSetChanged();
+                    if(avi != null) avi.hide();
+                    recyclerView.setVisibility(View.VISIBLE);
                     loadingData = false;
                 }
 
                 @Override
                 public <T> void OnFailure(T failure) {
                     Log.d("Retrofit", failure.toString().toString());
-                    Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG).show();
                     loadingData = false;
                 }
             });

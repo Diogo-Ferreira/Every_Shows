@@ -1,13 +1,19 @@
 package com.example.sarahgroell.artistview.Data;
 
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.RequiresApi;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Created by aurelie.debrot on 08.11.2016.
  */
 
-public class Show implements Parcelable {
+public class Show implements Parcelable, Comparable<Show>{
 
     public Artist artist;
     public String place;
@@ -45,6 +51,19 @@ public class Show implements Parcelable {
         return place + " " + date + " " + artist.name;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public int compareTo(Show o) {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            Date date1 = format.parse(o.date);
+            Date date2 = format.parse(this.date);
+            return date2.compareTo(date1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
     @Override
     public int describeContents() {
         return 0;
