@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.example.sarahgroell.artistview.Adapter.SectionsPagerAdapter;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.MapFragment;
+
+import java.util.Map;
 
 public class ViewPagerActivity extends AppCompatActivity {
 

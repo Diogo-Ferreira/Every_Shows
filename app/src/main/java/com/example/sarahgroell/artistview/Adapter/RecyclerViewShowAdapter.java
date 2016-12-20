@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Fragments.ShowDetailFragment;
 import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -57,7 +58,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
             public void onClick(View v) {
                 System.out.println("Click");
                 if(listener != null){
-                    listener.onClickShow(listShow.get(position).place);
+                    listener.onClickShow(listShow.get(position));//Précédement get(posiion).place
                 }
             }
         });

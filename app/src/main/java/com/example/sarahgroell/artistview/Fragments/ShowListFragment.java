@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -121,9 +122,15 @@ public class ShowListFragment extends Fragment {
         Log.d("Show","OnStart");
         showAdapter.setListener(new IShowListener() {
             @Override
-            public void onClickShow(String name) {
-                Log.d("from anonyme",name);
-                //On devrait lancer le fragment ici.
+            public void onClickShow(Show show) {
+                Log.d("from anonyme",show.toString());
+                ShowDetailFragment fragment = new ShowDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("show",show);
+                fragment.setArguments(bundle);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.frameLayout,fragment).addToBackStack(null);
+                transaction.commit();
             }
         });
     }

@@ -2,6 +2,8 @@ package com.example.sarahgroell.artistview.Data;
 
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 
 import java.text.ParseException;
@@ -11,7 +13,7 @@ import java.util.Date;
  * Created by aurelie.debrot on 08.11.2016.
  */
 
-public class Show implements Comparable<Show>{
+public class Show implements Parcelable, Comparable<Show>{
 
     public Artist artist;
     public String place;
@@ -34,6 +36,14 @@ public class Show implements Comparable<Show>{
         this.imageCover = i;
         this.date = d;
     }
+    //Constructeur avec un Parcel
+    public Show(Parcel in){
+        this.place = in.readString();
+        this.date = in.readString();
+        this.artist.name = in.readString();
+        this.imageCover = in.readString();
+        this.artist.imageCover = in.readString();
+    }
 
 
     @Override
@@ -54,4 +64,30 @@ public class Show implements Comparable<Show>{
         }
         return 0;
     }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(place);
+        dest.writeString(date);
+        dest.writeString(artist.name);
+        dest.writeString(imageCover);
+        dest.writeString(artist.imageCover);
+    }
+
+    public static final Parcelable.Creator<Show> CREATOR = new Parcelable.Creator<Show>(){
+        @Override
+        public Show createFromParcel(Parcel source) {
+            return new Show(source);
+        }
+
+        @Override
+        public Show[] newArray(int size) {
+            return new Show[size];
+        }
+    };
 }
+

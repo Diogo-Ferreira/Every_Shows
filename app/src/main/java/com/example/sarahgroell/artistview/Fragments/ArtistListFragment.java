@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,14 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.sarahgroell.artistview.Adapter.RecyclerViewAdapter;
+import com.example.sarahgroell.artistview.Adapter.ArtistListAdapter;
 import com.example.sarahgroell.artistview.Data.Api.RestClient;
 import com.example.sarahgroell.artistview.Data.Api.RetrofitClient;
 import com.example.sarahgroell.artistview.Data.Artist;
-import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.MusicProvider.ArtistsManager;
 import com.example.sarahgroell.artistview.R;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ import java.util.List;
 public class ArtistListFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    RecyclerViewAdapter adapter;
+    ArtistListAdapter adapter;
     ArrayList<Artist> artistData = new ArrayList<>();
     private boolean loadingData = false;
     RestClient restClient = RetrofitClient.getService();
@@ -45,7 +45,7 @@ public class ArtistListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.artist_show_list, container,false);
         avi = (AVLoadingIndicatorView) v.findViewById(R.id.avi);
-        adapter = new RecyclerViewAdapter(artistData);
+        adapter = new ArtistListAdapter(artistData);
         recyclerView = (RecyclerView) v.findViewById(R.id.RecyclerView);
         recyclerView.setAdapter(adapter);
         final RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this.getContext(), this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 2 : 1);
@@ -80,6 +80,23 @@ public class ArtistListFragment extends Fragment {
             if(avi != null) avi.show();
             loadData();
         }
+
+
+      adapter.setListener(new IArtistListener() {
+          @Override
+          public void onClickArtist(Artist artist) {
+              Log.d("from anonyme",artist.toString());
+              ArtistDetailFragment fragment = new ArtistDetailFragment();
+              Bundle bundle = new Bundle();
+              bundle.putParcelable("artist",artist);
+              fragment.setArguments(bundle);
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.add(R.id.frameLayout,fragment).addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+              transaction.commit();
+          }
+
+
+      });
 
     }
 
