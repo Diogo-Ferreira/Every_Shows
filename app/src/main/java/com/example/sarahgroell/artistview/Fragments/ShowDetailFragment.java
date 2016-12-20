@@ -27,7 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Created by aurelie.debrot on 23.11.2016.
  */
 
-public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
+public class ShowDetailFragment extends Fragment{
 
     public Show show; //donner les infos
     public TextView artistName;
@@ -36,9 +36,7 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
     public TextView place;
     public SimpleDraweeView imageArtist;
     public SimpleDraweeView imageLocation;
-    public SupportMapFragment mapFragment;
 
-    private FragmentActivity myContext;
 
     @Nullable
     @Override
@@ -52,8 +50,6 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
         imageArtist = (SimpleDraweeView)view.findViewById(R.id.artist);
         imageLocation = (SimpleDraweeView)view.findViewById(R.id.imageHall);
 
-        FragmentManager fragmentManager = myContext.getSupportFragmentManager();
-        mapFragment = (SupportMapFragment)fragmentManager.findFragmentById(R.id.map);
 
         Bundle bundle = this.getArguments();
         if(bundle != null){
@@ -66,16 +62,12 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
             imageArtist.setImageURI(show.artist.imageCover);
             imageLocation.setImageURI(show.imageCover);
         }
-        //Cette ligne cause une FATAL EXCEPTION. Apparemment la référence est nulle.
-        mapFragment.getMapAsync(this);
+
 
         return view;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
-    }
+
 
     /*@Override
     public void onAttach(Activity activity) {
@@ -83,11 +75,7 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
         super.onAttach(activity);
     }*/
 
-    @Override
-    public void onAttach(Context context) {
-        myContext = (FragmentActivity)context;
-        super.onAttach(context);
-    }
+
     //@Override
    /* public void onCreate(@Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
