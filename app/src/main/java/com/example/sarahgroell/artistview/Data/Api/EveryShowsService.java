@@ -14,8 +14,8 @@ import retrofit2.http.Path;
  */
 
 public interface EveryShowsService {
-    @GET("shows/{artists}")
-    Call<List<Show>> listShows(@Path("artists") String artists);
+    @GET("shows/{artist}/{lat}/{long}")
+    Call<List<Show>> listShows(@Path("artist") String artist,@Path("lat") String lat, @Path("long") String longitude);
 
     @GET("artist/{artist}")
     Call<Artist> getArtistInfo(@Path("artist") String artist);

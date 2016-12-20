@@ -3,6 +3,7 @@ package com.example.sarahgroell.artistview.Fragments;
 import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.icu.text.SimpleDateFormat;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.example.sarahgroell.artistview.Data.Api.RestClient;
 import com.example.sarahgroell.artistview.Data.Api.RetrofitClient;
 import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Gps.EveryGPS;
 import com.example.sarahgroell.artistview.Listener.IShowListener;
 import com.example.sarahgroell.artistview.MusicProvider.ArtistsManager;
 import com.example.sarahgroell.artistview.R;
@@ -48,6 +50,7 @@ public class ShowListFragment extends Fragment {
     boolean loadingData = false;
     ArtistsManager artistsManager = ArtistsManager.getInstance();
     AVLoadingIndicatorView avi;
+    EveryGPS everyGPS;
 
     @Nullable
     @Override
@@ -70,10 +73,14 @@ public class ShowListFragment extends Fragment {
                         orientation != Configuration.ORIENTATION_LANDSCAPE ? 1 : 2
         );
 
+
+        everyGPS = EveryGPS.getInstance(this.getContext());
+
         recyclerView.setLayoutManager(mLayoutManager);
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
@@ -135,6 +142,7 @@ public class ShowListFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void loadData(){
 
         loadingData = true;
@@ -142,8 +150,10 @@ public class ShowListFragment extends Fragment {
 
         if(artists == null) return;
 
-        for(int i = 0; i< artists.size(); i++){
-            restClient.getShows(artists.subList(i,i+1), new RestClient.OnResponce() {
+        Location location = everyGPS.getLocation();
+
+        for(Artist artist : artists){
+            restClient.getShows(artist,location, new RestClient.OnResponce() {
                 @TargetApi(Build.VERSION_CODES.N)
                 @Override
                 public <T> void OnSuccess(T response) {

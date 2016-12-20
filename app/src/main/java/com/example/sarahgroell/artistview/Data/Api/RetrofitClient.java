@@ -1,5 +1,6 @@
 package com.example.sarahgroell.artistview.Data.Api;
 
+import android.location.Location;
 import android.util.Log;
 
 import com.example.sarahgroell.artistview.Data.Artist;
@@ -48,16 +49,9 @@ public class RetrofitClient implements RestClient{
     }
 
     @Override
-    public void getShows(List<Artist> artists, final OnResponce finalResponse) {
+    public void getShows(Artist artist, Location location, final OnResponce finalResponse) {
 
-        String artistsGlued = "";
-
-        //Api can batch multiple users, sperated by comas
-        for(Artist a : artists)
-            artistsGlued += a.name+",";
-
-
-        Call<List<Show>> call = service.listShows(artistsGlued);
+        Call<List<Show>> call = service.listShows(artist.name, String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
 
         call.enqueue(new Callback<List<Show>>() {
             @Override
