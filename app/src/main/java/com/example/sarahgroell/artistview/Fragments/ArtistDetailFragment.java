@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.sarahgroell.artistview.Adapter.NextShowArtistAdapter;
 import com.example.sarahgroell.artistview.Adapter.SimilarArtistAdapter;
 import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.R;
@@ -25,7 +26,9 @@ public class ArtistDetailFragment extends Fragment {
     TextView name;
     TextView biographie;
     RecyclerView similarRecyclerView;
+    RecyclerView nextShowsRecyclerView;
     SimilarArtistAdapter similarArtistAdapter;
+    NextShowArtistAdapter nextShowArtistAdapter;
 
 
     @Override
@@ -46,6 +49,7 @@ public class ArtistDetailFragment extends Fragment {
         if(bundle != null){
             artist = bundle.getParcelable("artist");
             artist.loadFakeSimilarArtist();
+            artist.loadFakeNextShows();
             artist.setInfos("Voici les diverses informations liées à l'artiste. Ce texte est un texte par défaut.");
 
             similarArtistAdapter = new SimilarArtistAdapter(artist.similarArtists);
@@ -53,7 +57,10 @@ public class ArtistDetailFragment extends Fragment {
             similarRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
             similarRecyclerView.setAdapter(similarArtistAdapter);
 
-            System.out.println(artist.toString());
+            nextShowArtistAdapter = new NextShowArtistAdapter(artist.nextShows);
+            nextShowsRecyclerView = (RecyclerView) view.findViewById(R.id.nextShows);
+            nextShowsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL, false));
+            nextShowsRecyclerView.setAdapter(nextShowArtistAdapter);
 
             name.setText(artist.name);
             image.setImageURI(artist.imageCover);
