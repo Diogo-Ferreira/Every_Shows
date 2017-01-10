@@ -13,23 +13,31 @@ import java.util.List;
 public class Artist implements Parcelable{
     public String name;
     public ArrayList<Artist> similarArtists;
+    public String infos;
+    public String imageCover;
+
 
     public Artist(String name, String imageCover) {
         this.name = name;
         this.imageCover = imageCover;
     }
 
-    public String imageCover;
+    public Artist(String name, String imageCover, String infos) {
+        this.name = name;
+        this.imageCover = imageCover;
+        this.infos = infos;
+    }
+
+    public void setInfos(String infos){
+        this.infos = infos;
+    }
 
     public Artist(String name) {
         this.name = name;
     }
 
-
-
-
     public String toString() {
-        return name;
+        return name + " // " + infos;
     }
 
     public static List<Artist> fake(){

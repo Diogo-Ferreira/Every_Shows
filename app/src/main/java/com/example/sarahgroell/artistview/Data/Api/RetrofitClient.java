@@ -32,7 +32,7 @@ public class RetrofitClient implements RestClient{
                 .readTimeout(10, TimeUnit.MINUTES)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://46.101.128.247:4567")
+                .baseUrl("http://46.101.161.176:4567")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
