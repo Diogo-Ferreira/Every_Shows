@@ -27,6 +27,7 @@ import com.example.sarahgroell.artistview.Gps.EveryGPS;
 import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,6 +53,9 @@ public class ArtistDetailFragment extends Fragment {
 
     EveryGPS everyGPS;
 
+    AVLoadingIndicatorView avi;
+
+
 
 
 
@@ -59,7 +63,12 @@ public class ArtistDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        if(avi != null) avi.show();
+
+        loadSimilarArtist();
         loadNextShows();
+
 
          similarArtistAdapter.setListener(new IArtistListener() {
           @Override
@@ -75,38 +84,44 @@ public class ArtistDetailFragment extends Fragment {
           }
       });
 
-        /* Récupération des infos de l'artiste
+
+    }
+
+    private void loadSimilarArtist(){
+        //Récupération des infos de l'artiste
         restClient.getArtistInfo(artist,new RestClient.OnResponce(){
             @Override
             public <T> void OnSuccess(T response) {
+                Artist a = (Artist) response;
+                Log.d("vagin : ",a.toString());
+                artist = a;
 
             }
             @Override
             public <T> void OnFailure(T failure) {
 
             }
-        });*/
+        });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void loadNextShows(){
 
         Location location = everyGPS.getLocation();
-
 
         restClient.getShows(artist,location, new RestClient.OnResponce() {
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public <T> void OnSuccess(T response) {
-
                 if(response != null){
                     for(Show show : (List<Show>)response){
                         if(!showData.contains(show)){
                             showData.add(show);
                         }
                     }
-
                     Collections.sort(showData);
                     nextShowArtistAdapter.notifyDataSetChanged();
+                    if(avi != null) avi.hide();
                     nextShowsRecyclerView.setVisibility(View.VISIBLE);
                 }
             }
@@ -125,6 +140,9 @@ public class ArtistDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.detail_artist_page,container,false);
+
+        avi = (AVLoadingIndicatorView) view.findViewById(R.id.avi);
+
         image = (SimpleDraweeView)view.findViewById(R.id.artistImage);
         name = (TextView) view.findViewById(R.id.artistName);
         biographie = (TextView) view.findViewById(R.id.biographieArtist);
@@ -136,8 +154,6 @@ public class ArtistDetailFragment extends Fragment {
         Bundle bundle = this.getArguments();
         if(bundle != null){
             artist = bundle.getParcelable("artist");
-            artist.loadFakeSimilarArtist();
-            artist.setInfos("Voici les diverses informations liées à l'artiste. Ce texte est un texte par défaut.");
 
             similarArtistAdapter = new SimilarArtistAdapter(artist.similarArtists);
             similarRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerArtists);
@@ -151,7 +167,7 @@ public class ArtistDetailFragment extends Fragment {
 
             name.setText(artist.name);
             image.setImageURI(artist.imageCover);
-            biographie.setText(artist.infos);
+            biographie.setText(artist.info);
         }
 
         return view;

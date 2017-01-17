@@ -14,7 +14,7 @@ public class Artist implements Parcelable{
     public String name;
     public ArrayList<Artist> similarArtists;
     public ArrayList<Show> nextShows;
-    public String infos;
+    public String info;
     public String imageCover;
 
     public Artist(String name, String imageCover) {
@@ -25,7 +25,7 @@ public class Artist implements Parcelable{
     public Artist(String name, String imageCover, String infos) {
         this.name = name;
         this.imageCover = imageCover;
-        this.infos = infos;
+        this.info = infos;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Artist implements Parcelable{
     }
 
     public void setInfos(String infos){
-        this.infos = infos;
+        this.info = infos;
     }
 
     public Artist(String name) {
@@ -47,7 +47,7 @@ public class Artist implements Parcelable{
     }
 
     public String toString() {
-        return name + " // " + infos;
+        return name + " // " + info;
     }
 
     public static List<Artist> fake() {
