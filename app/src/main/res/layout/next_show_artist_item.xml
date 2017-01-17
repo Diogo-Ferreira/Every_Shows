@@ -4,27 +4,37 @@
     android:orientation="vertical"
     android:layout_width="100dp"
     android:layout_height="match_parent"
-    android:paddingLeft="20dp">
+    android:layout_marginLeft="20dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="20dp"
-        fresco:placeholderImage="@drawable/artist1"
-        fresco:roundAsCircle="true"
+        fresco:placeholderImage="@drawable/hallenstadion"
         android:layout_gravity="center_horizontal"
-        fresco:roundedCornerRadius="1dp"
-        android:id="@+id/simArtistImage"
+        android:id="@+id/nextShowImage"
+
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nom artiste"
-        android:id="@+id/simArtistName"
+        android:id="@+id/nextShowPlace"
         android:textSize="15dp"
+        android:text="Place"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="#fff"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nextShowDate"
+        android:textSize="15dp"
+        android:text="Date"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#fff"/>
+
+
 
 </LinearLayout>

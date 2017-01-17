@@ -13,26 +13,34 @@ import java.util.List;
 public class Artist implements Parcelable{
     public String name;
     public ArrayList<Artist> similarArtists;
+    public ArrayList<Show> nextShows;
+    public String infos;
+    public String imageCover;
 
     public Artist(String name, String imageCover) {
         this.name = name;
         this.imageCover = imageCover;
     }
 
-    public String imageCover;
+    public Artist(String name, String imageCover, String infos) {
+        this.name = name;
+        this.imageCover = imageCover;
+        this.infos = infos;
+    }
+
+    public void setInfos(String infos){
+        this.infos = infos;
+    }
 
     public Artist(String name) {
         this.name = name;
     }
 
-
-
-
     public String toString() {
-        return name;
+        return name + " // " + infos;
     }
 
-    public static List<Artist> fake(){
+    public static List<Artist> fake() {
         List<Artist> fakeArtists = new ArrayList<Artist>();
         fakeArtists.add(new Artist("Green Day"));
         fakeArtists.add(new Artist("Adele"));
@@ -40,13 +48,26 @@ public class Artist implements Parcelable{
         fakeArtists.add(new Artist("Jain"));
         fakeArtists.add(new Artist("Avril Lavigne"));
         return fakeArtists;
-
     }
+    public static List<Show> fakeShows(){
+        List<Show> fakeShows = new ArrayList<Show>();
+        fakeShows.add(new Show("Delémont","drawable/hallenstadion.jpg","09.07.1994"));
+        fakeShows.add(new Show("Neuchâtel","drawable/hallenstadion.jpg","10.07.1994"));
+        fakeShows.add(new Show("Lausanne","drawable/hallenstadion.jpg","11.07.1994"));
+        fakeShows.add(new Show("Genève","drawable/hallenstadion.jpg","12.07.1994"));
+        fakeShows.add(new Show("Ouagadougou","drawable/hallenstadion.jpg","13.07.1994"));
 
+        return fakeShows;
+    }
     public void loadFakeSimilarArtist(){
         similarArtists = new ArrayList<Artist>();
         similarArtists.addAll(fake());
 
+    }
+
+    public void loadFakeNextShows(){
+        nextShows = new ArrayList<Show>();
+        nextShows.addAll(fakeShows());
     }
 
     protected Artist(Parcel in) {

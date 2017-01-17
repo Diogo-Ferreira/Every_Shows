@@ -1,7 +1,6 @@
 package com.example.sarahgroell.artistview.Fragments;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.sarahgroell.artistview.Adapter.NextShowArtistAdapter;
 import com.example.sarahgroell.artistview.Adapter.SimilarArtistAdapter;
 import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.R;
@@ -24,8 +24,11 @@ public class ArtistDetailFragment extends Fragment {
     private Artist artist;
     SimpleDraweeView image;
     TextView name;
+    TextView biographie;
     RecyclerView similarRecyclerView;
-    SimilarArtistAdapter adapter;
+    RecyclerView nextShowsRecyclerView;
+    SimilarArtistAdapter similarArtistAdapter;
+    NextShowArtistAdapter nextShowArtistAdapter;
 
 
     @Override
@@ -39,19 +42,29 @@ public class ArtistDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.detail_artist_page,container,false);
         image = (SimpleDraweeView)view.findViewById(R.id.artistImage);
         name = (TextView) view.findViewById(R.id.artistName);
+        biographie = (TextView) view.findViewById(R.id.biographieArtist);
 
 
         Bundle bundle = this.getArguments();
         if(bundle != null){
             artist = bundle.getParcelable("artist");
             artist.loadFakeSimilarArtist();
-            adapter = new SimilarArtistAdapter(artist.similarArtists);
+            artist.loadFakeNextShows();
+            artist.setInfos("Voici les diverses informations liées à l'artiste. Ce texte est un texte par défaut.");
+
+            similarArtistAdapter = new SimilarArtistAdapter(artist.similarArtists);
             similarRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerArtists);
             similarRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
-            similarRecyclerView.setAdapter(adapter);
-            System.out.println(artist.toString());
+            similarRecyclerView.setAdapter(similarArtistAdapter);
+
+            nextShowArtistAdapter = new NextShowArtistAdapter(artist.nextShows);
+            nextShowsRecyclerView = (RecyclerView) view.findViewById(R.id.nextShows);
+            nextShowsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL, false));
+            nextShowsRecyclerView.setAdapter(nextShowArtistAdapter);
+
             name.setText(artist.name);
             image.setImageURI(artist.imageCover);
+            biographie.setText(artist.infos);
         }
 
         return view;
