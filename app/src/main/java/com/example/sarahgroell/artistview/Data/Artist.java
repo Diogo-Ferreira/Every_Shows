@@ -28,6 +28,16 @@ public class Artist implements Parcelable{
         this.infos = infos;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj instanceof Artist){
+            return name.equals(((Artist) obj).name);
+        }else{
+            return super.equals(obj);
+        }
+    }
+
     public void setInfos(String infos){
         this.infos = infos;
     }
