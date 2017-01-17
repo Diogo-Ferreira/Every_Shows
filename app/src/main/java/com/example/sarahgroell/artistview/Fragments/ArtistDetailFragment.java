@@ -3,8 +3,10 @@ package com.example.sarahgroell.artistview.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.example.sarahgroell.artistview.Adapter.NextShowArtistAdapter;
 import com.example.sarahgroell.artistview.Adapter.SimilarArtistAdapter;
 import com.example.sarahgroell.artistview.Data.Artist;
+import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -34,6 +37,21 @@ public class ArtistDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+
+         similarArtistAdapter.setListener(new IArtistListener() {
+          @Override
+          public void onClickArtist(Artist artist) {
+              Log.d("from anonyme",artist.toString());
+              ArtistDetailFragment fragment = new ArtistDetailFragment();
+              Bundle bundle = new Bundle();
+              bundle.putParcelable("artist",artist);
+              fragment.setArguments(bundle);
+              FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+              transaction.add(R.id.frameLayout,fragment).addToBackStack(null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+              transaction.commit();
+          }
+      });
     }
 
     @Nullable

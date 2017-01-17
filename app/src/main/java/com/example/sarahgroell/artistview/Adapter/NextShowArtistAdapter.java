@@ -55,9 +55,6 @@ public class NextShowArtistAdapter extends RecyclerView.Adapter<NextShowArtistAd
             nextShowPlace = (TextView) itemView.findViewById(R.id.nextShowPlace);
             nextShowDate = (TextView) itemView.findViewById(R.id.nextShowDate);
             imageCover = (SimpleDraweeView) itemView.findViewById(R.id.nextShowImage);
-
-
-
         }
     }
 }
