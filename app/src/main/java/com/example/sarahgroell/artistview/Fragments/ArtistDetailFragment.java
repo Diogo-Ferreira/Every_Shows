@@ -1,7 +1,11 @@
 package com.example.sarahgroell.artistview.Fragments;
 
+import android.annotation.TargetApi;
+import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +15,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sarahgroell.artistview.Adapter.NextShowArtistAdapter;
 import com.example.sarahgroell.artistview.Adapter.SimilarArtistAdapter;
+import com.example.sarahgroell.artistview.Data.Api.RestClient;
+import com.example.sarahgroell.artistview.Data.Api.RetrofitClient;
 import com.example.sarahgroell.artistview.Data.Artist;
+import com.example.sarahgroell.artistview.Data.Show;
+import com.example.sarahgroell.artistview.Gps.EveryGPS;
 import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by sarah.groell on 29.11.2016.
@@ -28,16 +41,25 @@ public class ArtistDetailFragment extends Fragment {
     SimpleDraweeView image;
     TextView name;
     TextView biographie;
+
+    ArrayList<Show> showData = new ArrayList<>();
+
     RecyclerView similarRecyclerView;
     RecyclerView nextShowsRecyclerView;
     SimilarArtistAdapter similarArtistAdapter;
     NextShowArtistAdapter nextShowArtistAdapter;
+    RestClient restClient = RetrofitClient.getService();
+
+    EveryGPS everyGPS;
 
 
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onStart() {
         super.onStart();
-
+        loadNextShows();
 
          similarArtistAdapter.setListener(new IArtistListener() {
           @Override
@@ -52,6 +74,51 @@ public class ArtistDetailFragment extends Fragment {
               transaction.commit();
           }
       });
+
+        /* Récupération des infos de l'artiste
+        restClient.getArtistInfo(artist,new RestClient.OnResponce(){
+            @Override
+            public <T> void OnSuccess(T response) {
+
+            }
+            @Override
+            public <T> void OnFailure(T failure) {
+
+            }
+        });*/
+    }
+
+    private void loadNextShows(){
+
+        Location location = everyGPS.getLocation();
+
+
+        restClient.getShows(artist,location, new RestClient.OnResponce() {
+            @TargetApi(Build.VERSION_CODES.N)
+            @Override
+            public <T> void OnSuccess(T response) {
+
+                if(response != null){
+                    for(Show show : (List<Show>)response){
+                        if(!showData.contains(show)){
+                            showData.add(show);
+                        }
+                    }
+
+                    Collections.sort(showData);
+                    nextShowArtistAdapter.notifyDataSetChanged();
+                    nextShowsRecyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public <T> void OnFailure(T failure) {
+                Log.d("Retrofit", failure.toString().toString());
+                Toast.makeText(getContext(),"Gosh ! Something went wrong ! Check Console",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
     }
 
     @Nullable
@@ -63,11 +130,13 @@ public class ArtistDetailFragment extends Fragment {
         biographie = (TextView) view.findViewById(R.id.biographieArtist);
 
 
+        everyGPS = EveryGPS.getInstance(this.getContext());
+
+
         Bundle bundle = this.getArguments();
         if(bundle != null){
             artist = bundle.getParcelable("artist");
             artist.loadFakeSimilarArtist();
-            artist.loadFakeNextShows();
             artist.setInfos("Voici les diverses informations liées à l'artiste. Ce texte est un texte par défaut.");
 
             similarArtistAdapter = new SimilarArtistAdapter(artist.similarArtists);
@@ -75,7 +144,7 @@ public class ArtistDetailFragment extends Fragment {
             similarRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL,false));
             similarRecyclerView.setAdapter(similarArtistAdapter);
 
-            nextShowArtistAdapter = new NextShowArtistAdapter(artist.nextShows);
+            nextShowArtistAdapter = new NextShowArtistAdapter(showData);
             nextShowsRecyclerView = (RecyclerView) view.findViewById(R.id.nextShows);
             nextShowsRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext(),LinearLayoutManager.HORIZONTAL, false));
             nextShowsRecyclerView.setAdapter(nextShowArtistAdapter);
