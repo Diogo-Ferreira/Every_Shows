@@ -10,5 +10,5 @@ import com.example.sarahgroell.artistview.Data.Show;
  */
 
 public interface IShowListener {
-    void onClickShow(Show show);//précédement String name, changer pour le transfert.
+    void onClickShow(Show show);
 }

@@ -58,7 +58,7 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
             public void onClick(View v) {
                 System.out.println("Click");
                 if(listener != null){
-                    listener.onClickShow(listShow.get(position));//Précédement get(posiion).place
+                    listener.onClickShow(listShow.get(position));
                 }
             }
         });
@@ -76,7 +76,6 @@ public class RecyclerViewShowAdapter extends RecyclerView.Adapter<RecyclerViewSh
         public SimpleDraweeView imageCover;
         public SimpleDraweeView artistCover;
         public TextView showDate;
-        //public SimpleDraweeView imageArtist;
 
         public ViewHolder(View itemView){
             super(itemView);

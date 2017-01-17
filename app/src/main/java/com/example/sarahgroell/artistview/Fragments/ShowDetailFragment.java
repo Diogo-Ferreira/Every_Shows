@@ -39,16 +39,14 @@ import java.util.List;
 
 public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
 
-    public Show show; //donner les infos
+    public Show show;
     public TextView artistName;
-    //public TextView location;
     public TextView date;
     public TextView place;
     public SimpleDraweeView imageArtist;
     public SimpleDraweeView imageLocation;
     //Map
     public SupportMapFragment mapFragment;
-    private FragmentActivity myContext;
     private GoogleMap mMap;
 
 
@@ -58,7 +56,6 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
         View view = inflater.inflate(R.layout.detail_show_page,container,false);
 
         artistName = (TextView)view.findViewById(R.id.artistName);
-        //location = (TextView)view.findViewById(R.id.location);
         date = (TextView)view.findViewById(R.id.date);
         place = (TextView)view.findViewById(R.id.place);
         imageArtist = (SimpleDraweeView)view.findViewById(R.id.artist);
@@ -70,7 +67,6 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
             show = bundle.getParcelable("show");
             System.out.println(show.toString());
             artistName.setText(show.artist.name);
-            //location.setText(show.place);
             date.setText(show.date);
             place.setText(show.place);
             imageArtist.setImageURI(show.artist.imageCover);
@@ -85,7 +81,6 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
         super.onStart();
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Log.d("getMapAsync", "onCreateView: ");
         MapsInitializer.initialize(getContext());
 
 
