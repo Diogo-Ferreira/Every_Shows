@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,11 +31,10 @@ import com.example.sarahgroell.artistview.MusicProvider.ArtistsManager;
 import com.example.sarahgroell.artistview.R;
 import com.wang.avi.AVLoadingIndicatorView;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by diogo on 11/8/16.
@@ -80,7 +79,7 @@ public class ShowListFragment extends Fragment {
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
@@ -93,20 +92,29 @@ public class ShowListFragment extends Fragment {
 
 
                 //Did we reached the end ?
-
                 if (pastVisibleItems + visibleItemCount >= totalItemCount) {
-                    loadData();
+
+                    Log.d("BONJOUR","BONJOUR");
+                    getActivity().runOnUiThread(new Runnable() {
+                        @TargetApi(Build.VERSION_CODES.M)
+                        @Override
+                        public void run() {
+                            try{
+                                loadData();
+                            }catch (Exception e){
+                                Log.d("PUTAIN","PUTAIN");
+                            }
+                        }
+                    });
                 }
             }
         });
-
 
         Log.d("Show","OnCreateView");
         return v;
     }
 
     public static ShowListFragment newInstance() {
-
         ShowListFragment fragment = new ShowListFragment();
         return fragment;
     }
@@ -116,14 +124,10 @@ public class ShowListFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-
         artistsManager.load(this.getContext());
 
-        if(showData.size() == 0) {
-            if(avi != null) avi.show();
-            loadData();
-        }
-
+        if(avi != null) avi.show();
+        loadData();
 
 
         Log.d("Show","OnStart");
@@ -157,11 +161,21 @@ public class ShowListFragment extends Fragment {
                 @TargetApi(Build.VERSION_CODES.N)
                 @Override
                 public <T> void OnSuccess(T response) {
-                    showData.addAll((List<Show>) response);
-                    Collections.sort(showData);
-                    showAdapter.notifyDataSetChanged();
-                    if(avi != null) avi.hide();
-                    recyclerView.setVisibility(View.VISIBLE);
+
+                    if(response != null){
+                        for(Show show : (List<Show>)response){
+                            if(!showData.contains(show)){
+                                showData.add(show);
+                            }
+                        }
+
+                        Collections.sort(showData);
+                        showAdapter.notifyDataSetChanged();
+                        if(avi != null) avi.hide();
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+
+
                     loadingData = false;
                 }
 

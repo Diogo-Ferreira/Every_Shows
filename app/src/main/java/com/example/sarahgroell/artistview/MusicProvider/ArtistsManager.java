@@ -28,6 +28,8 @@ public class ArtistsManager {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void load(Context context){
+        providers.clear();
+        artists.clear();
         providers.add(new TestMusicProvider());
         providers.add(new LocalMusicProvider((Activity) context));
         for(ArtistProvider artistProvider : providers){

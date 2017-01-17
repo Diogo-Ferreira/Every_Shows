@@ -89,5 +89,16 @@ public class Show implements Parcelable, Comparable<Show>{
             return new Show[size];
         }
     };
+
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj instanceof Show){
+            return ((Show)obj).artist.name == this.artist.name && ((Show)obj).date == this.date;
+        }
+
+        return super.equals(obj);
+    }
 }
 

@@ -67,7 +67,7 @@ public class ShowDetailFragment extends Fragment implements OnMapReadyCallback{
             imageLocation.setImageURI(show.imageCover);
         }
         //Cette ligne cause une FATAL EXCEPTION. Apparemment la référence est nulle.
-        mapFragment.getMapAsync(this);
+        //mapFragment.getMapAsync(this);
 
         return view;
     }

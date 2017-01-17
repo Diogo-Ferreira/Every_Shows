@@ -6,6 +6,8 @@ import android.util.Log;
 import com.example.sarahgroell.artistview.Data.Artist;
 import com.example.sarahgroell.artistview.Data.Show;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +28,9 @@ public class RetrofitClient implements RestClient{
 
     private EveryShowsService service;
 
+    private List<Show> showsCache = new ArrayList<>();
+    private Date showsCacheDate;
+
 
     private RetrofitClient(){
         OkHttpClient client = new OkHttpClient.Builder()
@@ -33,7 +38,7 @@ public class RetrofitClient implements RestClient{
                 .readTimeout(10, TimeUnit.MINUTES)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://46.101.128.247:4567")
+                .baseUrl("http://157.26.83.72:4567")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
@@ -51,12 +56,33 @@ public class RetrofitClient implements RestClient{
     @Override
     public void getShows(Artist artist, Location location, final OnResponce finalResponse) {
 
-        Call<List<Show>> call = service.listShows(artist.name, String.valueOf(location.getLatitude()),String.valueOf(location.getLongitude()));
+
+        /*if(showsCache.size() > 0 && showsCacheDate != null){
+            long duration  = new Date().getTime() - showsCacheDate.getTime();
+            long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration);
+
+            if(diffInMinutes <= 10){
+                finalResponse.OnSuccess(showsCache);
+                return;
+            }
+        }*/
+
+        double latitude = 0;
+        double longitude = 0;
+
+        if(location != null){
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+        }
+
+        Call<List<Show>> call = service.listShows(artist.name, String.valueOf(latitude),String.valueOf(longitude));
 
         call.enqueue(new Callback<List<Show>>() {
             @Override
             public void onResponse(Call<List<Show>> call, Response<List<Show>> response) {
                 finalResponse.OnSuccess(response.body());
+                showsCache = response.body();
+                showsCacheDate = new Date();
             }
 
             @Override
