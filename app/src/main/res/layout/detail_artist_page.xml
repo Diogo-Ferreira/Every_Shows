@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#263238"
     android:id="@+id/detailArtistsFragment"
+    android:clickable="true"
     >
 
     <LinearLayout

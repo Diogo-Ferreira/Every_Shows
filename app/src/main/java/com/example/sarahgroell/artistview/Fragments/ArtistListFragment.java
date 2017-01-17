@@ -111,7 +111,12 @@ public class ArtistListFragment extends Fragment {
             restClient.getArtistInfo(artist, new RestClient.OnResponce() {
                 @Override
                 public <T> void OnSuccess(T response) {
-                    artistData.add((Artist) response);
+
+                    Artist artist = (Artist) response;
+
+                    if(!artistData.contains(artist))
+                        artistData.add((Artist) response);
+
                     adapter.notifyDataSetChanged();
                     if(avi != null) avi.hide();
                     recyclerView.setVisibility(View.VISIBLE);
