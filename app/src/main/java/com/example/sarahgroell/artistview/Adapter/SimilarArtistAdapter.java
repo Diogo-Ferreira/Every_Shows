@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sarahgroell.artistview.Data.Artist;
+import com.example.sarahgroell.artistview.Listener.IArtistListener;
 import com.example.sarahgroell.artistview.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -18,6 +19,8 @@ import java.util.List;
 
 public class SimilarArtistAdapter extends RecyclerView.Adapter<SimilarArtistAdapter.ViewHolder> {
     private List<Artist> similarArtists;
+    private IArtistListener listener;
+
 
     public SimilarArtistAdapter(List<Artist> similarArtists) {
         this.similarArtists = similarArtists;
@@ -32,15 +35,28 @@ public class SimilarArtistAdapter extends RecyclerView.Adapter<SimilarArtistAdap
     }
 
     @Override
-    public void onBindViewHolder(SimilarArtistAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(SimilarArtistAdapter.ViewHolder holder, final int position) {
         holder.artistName.setText(similarArtists.get(position).name);
         holder.imageCover.setImageURI(similarArtists.get(position).imageCover);
+        holder.imageCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener != null){
+                    listener.onClickArtist(similarArtists.get(position));
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return similarArtists.size();
     }
+
+    public void setListener(IArtistListener listener) {
+        this.listener = listener;
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 

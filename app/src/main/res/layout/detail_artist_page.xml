@@ -10,17 +10,18 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="205dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:background="#000">
+        android:background="#000"
+        android:id="@+id/linearlayout">
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         fresco:placeholderImage="@drawable/artist1"
@@ -47,9 +48,11 @@
         android:layout_height="wrap_content"
         android:text="Artistes similaires"
         android:id="@+id/similarArtists"
-        android:layout_marginTop="190dp"
+        android:layout_below="@id/linearlayout"
         android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:textSize="20dp"
         android:textColor="#00c853"
         />
@@ -60,7 +63,7 @@
         android:id="@+id/recyclerArtists">
     </android.support.v7.widget.RecyclerView>
 
-    <!--
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,22 +71,41 @@
         android:id="@+id/informations"
         android:layout_marginLeft="15dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/similarArtists"
+        android:layout_below="@id/recyclerArtists"
         android:textSize="20dp"
         android:textColor="#00c853"
         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/biographieArtist"
+        android:layout_below="@id/informations"
+        android:textSize="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#fff"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prochains concerts"
         android:id="@+id/shows"
         android:layout_marginLeft="15dp"
-        android:layout_below="@id/informations"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/biographieArtist"
         android:layout_alignParentLeft="true"
         android:textSize="20dp"
         android:textColor="#00c853"
         />
 
--->
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shows"
+        android:id="@+id/nextShows">
+    </android.support.v7.widget.RecyclerView>
+
+
 
 </RelativeLayout>
