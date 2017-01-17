@@ -11,27 +11,33 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sarahgroell.artistview.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by aurelie.debrot on 20.12.2016.
  */
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback{
 
     public SupportMapFragment mapFragment;
     private FragmentActivity myContext;
+    private GoogleMap mMap;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(38,40)).title("Marker"));
+        mMap = googleMap;
+        LatLng zurich = new LatLng(47.38,8.52);
+        Marker marker = mMap.addMarker(new MarkerOptions().position(zurich).title("Marker"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(zurich));
+        marker.setVisible(true);
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
