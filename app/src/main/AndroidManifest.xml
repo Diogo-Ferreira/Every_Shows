@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sarahgroell.artistview">
+    package="com.example.sarahgroell.everyshows">
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
 
     <permission
-        android:name="com.example.sarahgroell.artistview.permission.MAPS_RECEIVE"
+        android:name="com.example.sarahgroell.everyshows.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.exampl.sarahgroell.artistview.permission.MAPS_RECEIVE" />
@@ -34,7 +34,7 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name=".ViewPagerActivity"
+            android:name="com.example.sarahgroell.everyshows.ViewPagerActivity"
             android:label="@string/title_activity_view_pager"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
